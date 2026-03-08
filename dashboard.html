@@ -5,14 +5,172 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GitHub Issues Tracker</title>
-     <!-- tailwind & daisyUi cdn -->
+
+    <!-- tailwind & daisyUi cdn -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <!-- font awsome cdn -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body>
+
+<body class="bg-gray-100 min-h-screen">
+    <!-- navbar -->
+
+    <nav class="bg-white shadow ">
+        <div class="w-11/12 mx-auto px-6 py-3 flex flex-col sm:flex-row justify-between items-center">
+            <div class="flex items-center gap-2 m-1">
+                <img src="./assets/github-logo.png" class="w-7" />
+                <h1 class="font-semibold">GitHub Issues Tracker</h1>
+            </div>
+            <div class="flex gap-2 m-1">
+                <input id="searchInput" placeholder="Search issues..."
+                    class="border-1 border-solid border-gray-200 bg-white px-3 py-2 rounded w-[70%]" />
+                <button onclick="searchIssues()" class="bg-[#4a00ff] text-white px-4 rounded">Search</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- main section -->
+
+    <div class="w-11/12 mx-auto mt-6">
+
+        <!-- tab buttons -->
+
+        <div class="flex gap-2 mb-5 bg-white p-4">
+
+            <button id="allBtn" class="tabBtn cursor-pointer px-5 py-2 rounded bg-[#4a00ff] text-white"
+                onclick="changeTab('all')">
+                All
+            </button>
+
+            <button id="openBtn" class="tabBtn cursor-pointer px-5 py-2 rounded border-1 border-solid border-gray-200"
+                onclick="changeTab('open')">
+                Open
+            </button>
+
+            <button id="closedBtn" class="tabBtn cursor-pointer px-5 py-2 rounded border-1 border-solid border-gray-200"
+                onclick="changeTab('closed')">
+                Closed
+            </button>
+
+        </div>
+
+        <!-- issues counter -->
+
+        <div class="bg-white rounded shadow p-4 mb-1 flex flex-col sm:flex-row justify-between">
+
+            <div class="flex gap-3 items-center">
+
+                <div class="text-xl">
+                    <img src="./assets/Aperture.png">
+                </div>
+
+                <div>
+
+                    <h2 id="issueCount" class="font-semibold text-black text-xl">
+                        0 Issues
+                    </h2>
+
+                    <p class="text-sm text-gray-500">
+                        Track and manage your project issues
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="flex gap-4 text-sm mt-2">
+
+                <span class="flex items-center gap-1 text-green-600">
+                    ● Open
+                </span>
+
+                <span class="flex items-center gap-1 text-purple-600">
+                    ● Closed
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- Cards Container -->
+
+        <div id="issuesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pb-6 bg-[#FBFBFB] p-4 ">
+        </div>
+
+    </div>
+
+    <!-- modal section -->
+
+    <dialog id="issueModal" class="modal">
+
+        <div class="modal-box bg-white">
+
+            <h3 id="modalTitle" class="font-bold text-lg mb-2"></h3>
+
+            <div class="flex items-center gap-2 mb-3">
+
+                <span id="modalStatus" class="px-2 py-1 text-xs rounded bg-green-100 text-green-600">
+                    Open
+                </span>
+                <span id="openBy" class="text-xs text-gray-500"></span>
+
+                <span id="modalDate" class="text-xs text-gray-500">
+                </span>
+
+            </div>
+
+            <div id="modalLabel" class="flex gap-2 mb-3">
+
+            </div>
+
+            <p id="modalDesc" class="text-sm text-gray-600 mb-4">
+            </p>
+
+            <div class="bg-gray-100 p-3 rounded flex justify-between text-sm">
+
+                <div>
+
+                    <p class="text-gray-500">
+                        Assignee:
+                    </p>
+
+                    <p id="modalAuthor"></p>
+
+                </div>
+
+                <div>
+
+                    <p class="text-gray-500">
+                        Priority:
+                    </p>
+
+                    <p id="modalPriority">
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="modal-action">
+
+                <form method="dialog">
+
+                    <button class="bg-purple-600 text-white px-4 py-2 rounded border-none cursor-pointer">
+                        Close
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </dialog>
     <script src="./js/dashboard.js"></script>
 </body>
+
 </html>
